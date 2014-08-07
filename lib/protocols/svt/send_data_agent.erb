@@ -1,0 +1,8 @@
+module driver(<%= interface.name %> intf);
+  task send(<%= xact.name %> xact);
+  <% interface.each do |port| %>
+  <%=  "  intf.#{port} = xact.#{port};" %>
+  <% end %>   
+  endtask
+endmodule
+  
