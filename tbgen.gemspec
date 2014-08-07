@@ -6,10 +6,11 @@ require 'tbgen/version'
 Gem::Specification.new do |spec|
   spec.name          = "tbgen"
   spec.version       = Tbgen::VERSION
-  spec.authors       = ["user1"]
-  spec.email         = ["user1@example.org"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.authors       = ["sanjeev singh"]
+  spec.email         = ["snjvsingh123@gmail.com"]
+  spec.summary       = %q{Generates an automated testbench for hdl(verilog) designs.}
+  spec.description   = %q{Allows the RTL designer to automatically generate testbench from the top level
+                          ports of the design.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -20,4 +21,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "erb"
 end

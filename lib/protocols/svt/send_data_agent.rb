@@ -1,4 +1,3 @@
-require 'erb'
 class SendDataAgent
   attr_reader :interface, :xact
 

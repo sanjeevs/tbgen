@@ -12,7 +12,7 @@ describe SendDataAgent do
       
       @send_data_agent.xact.should_receive(:name).and_return('my_xact')
       @send_data_agent.interface.should_receive(:each).and_yield('a')
-      puts @send_data_agent.render
+      @send_data_agent.render
     end
   end
 end
