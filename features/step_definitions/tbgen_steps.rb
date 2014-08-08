@@ -16,11 +16,8 @@ end
 Given(/^I am not familiar with the tool$/) do
 end
 
-When(/^I invoke the tool$/) do
-  tb  = Tbgen::Testbench.new(output)
-  tb.start()
-end
-
-Then /^I should see "([^"]*)"$/ do |message|
-  output.message.should include(message)
-end
+When(/^I run `tbgen`$/) 
+Then it should pass with:
+  """
+  Welcome to Testbench Generator!
+  """
