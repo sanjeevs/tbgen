@@ -1,8 +1,26 @@
-module driver(<%= interface.name %> intf);
-  task send(<%= xact.name %> xact);
-  <% interface.each do |port| %>
-  <%=  "  intf.#{port} = xact.#{port};" %>
+module <%= "#{@name}_agent" %>(
+  <% @data_ports.each_index do |i| %>
+__<%= "123456789" %>
+  <% if i == @data_ports.length() - 1 %>
+  <%= "#{@data_ports[i].interface_declaration}"%>
+
+  <% else %> 
+  <%= "#{@data_ports[i].interface_declaration},"%>
+
+  <% end %>
+
+  <% end %>
+);
+  <% @data_ports.each do |port| %>
+   <%= port.definition %>;
+  <% end %>
+   
+  task send(<%= "#{@name}_xact xact" %>);
+  <% @data_ports.each do |port| %>
+  <%=  "  #{port.name} = xact.#{port.name};" %>
+
   <% end %>   
   endtask
+
 endmodule
   

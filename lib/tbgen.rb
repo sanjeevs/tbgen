@@ -1,3 +1,5 @@
 require "tbgen/version"
 require "tbgen/testbench"
+require "tbgen/port"
+require "tbgen/hdl_module"
 require "protocols/svt/send_data_agent"

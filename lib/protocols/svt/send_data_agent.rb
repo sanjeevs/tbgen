@@ -1,14 +1,14 @@
 class SendDataAgent
-  attr_reader :interface, :xact
+  attr_reader :name, :data_ports
 
-  def initialize(interface, xact)
-    @interface = interface
-    @xact = xact
+  def initialize(name, data_ports)
+    @name = name
+    @data_ports = data_ports 
   end
 
   def render
     erb_file = File.expand_path("../send_data_agent.erb", __FILE__)
-    puts ERB.new(open(erb_file, 'r').read).result(binding)
+    ERB.new(open(erb_file, 'r').read, nil, '>').result(binding)
   end
 end
 
