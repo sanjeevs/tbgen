@@ -1,3 +1,17 @@
 module Testbench
+  <% @dut.ports.each do |port| do %>
+  <%= port.declaration("wire") %>
+  <% end %>
+
   dut dut();
+
+  <% @protocols.each do |protocol| do %>
+  <%= protocol.agent_name protocol.agent_name "(" %>
+    <% protocol.control_ports.each do |port| %>
+      ".#(port)  (dut.#(port)),
+    <% end %>
+    <% protocol.data_ports.each do |port| %>
+      ".#(port)  (dut.#(port)),
+    <% end %>
+  <%= ");" %>   
 endmodule

@@ -1,6 +1,5 @@
 module <%= "#{@name}_agent" %>(
   <% @data_ports.each_index do |i| %>
-__<%= "123456789" %>
   <% if i == @data_ports.length() - 1 %>
   <%= "#{@data_ports[i].interface_declaration}"%>
 
