@@ -1,4 +1,4 @@
-<%= render "../agent.erb" %>
+  initial <%= @clk.name %> = 0;
 
-  
-endmodule
+  always #<%= "#{@half_period} #{@clk.name} = ~ #{@clk.name};" %>
+
