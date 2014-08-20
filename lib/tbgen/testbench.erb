@@ -1,17 +1,29 @@
+<%= render "../../common/header.erb" %>
+
 module Testbench
-  <% @dut.ports.each do |port| do %>
-  <%= port.declaration("wire") %>
+  <% @dut.ports.each do |port|  %>
+  <%= port.vlg_definition "wire" %>
   <% end %>
 
-  dut dut();
+  dut dut(
+  <% @dut.ports[0...-1].each do |port|  %>
+  .<%= "#{port.name}(#{port.name})," %>
 
-  <% @protocols.each do |protocol| do %>
-  <%= protocol.agent_name protocol.agent_name "(" %>
-    <% protocol.control_ports.each do |port| %>
-      ".#(port)  (dut.#(port)),
+  <% end %>
+  .<%= "#{@dut.ports.last.name}(#{@dut.ports.last.name})" if @dut.ports.last%>
+
+  );
+
+  <% @agents.each do |agent|  %>
+  <%= "#{agent.name} #{agent.name}" %>( 
+    <% agent.control_ports.each do |port| %>
+      .<%= "#{port.name}(dut.#{port.name})," %>
+
     <% end %>
-    <% protocol.data_ports.each do |port| %>
-      ".#(port)  (dut.#(port)),
+    <% agent.data_ports.each do |port| %>
+      .<%= "#{port.name}(dut.#{port.name})," %>
+
     <% end %>
+  <% end %>
   <%= ");" %>   
 endmodule

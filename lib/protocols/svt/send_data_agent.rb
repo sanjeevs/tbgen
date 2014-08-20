@@ -1,5 +1,6 @@
 class SendDataAgent
-  attr_reader :name, :data_ports
+  PROPERTIES = [:name, :data_ports, :control_ports]
+  PROPERTIES.each { |p| attr_accessor p }
 
   def initialize(name, data_ports)
     @name = name

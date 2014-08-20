@@ -1,0 +1,30 @@
+<%= render "../../common/header.erb" %>
+
+module <%= @name %>(
+<% @data_ports[0...-1].each do |port| %>
+<%= "  #{port.name}," %>
+
+<% end %>
+<%= "  #{@data_ports.last.name}" %>
+);
+
+//Port Declaration
+<% @data_ports.each  do |port| %>
+  <%= "#{port.reverse_dut_type_declaration};" %>
+
+<% end %>
+
+//Internal Signals
+<% @data_ports.each  do |port| %>
+  <%= "#{port.reverse_dut_definition};" %>
+
+<% end %>
+
+  task send(<%= @xact_name%> xact);
+<% @data_ports.each do |port| %>
+<%= "    #{port.name} = xact.#{port.name};" %>
+
+<% end %>
+  endtask
+
+endmodule
