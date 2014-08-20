@@ -1,0 +1,25 @@
+<%= render "../../common/header.erb" %>
+<% all_ports = @data_ports + @control_ports %>
+module <%= @name %>(
+<% all_ports[0...-1].each do |port| %>
+<%= "  #{port.name}," %>
+
+<% end %>
+<%= "  #{all_ports.last.name}" %>
+);
+
+//Port Declaration
+<% all_ports.each  do |port| %>
+  <%= "#{port.reverse_dut_type_declaration};" %>
+
+<% end %>
+
+//Internal Signals
+<% all_ports.each  do |port| %>
+  <%= "#{port.reverse_dut_definition};" %>
+
+<% end %>
+
+<%= render @custom_erb_filename if @custom_erb_filename %>
+
+endmodule

@@ -24,7 +24,7 @@ module Tbgen
         expect { @async_input_agent << Port.new('a') }.to raise_error
       end
       it "should create the verilog" do
-        driver = @async_input_agent.render
+        driver = @async_input_agent.verilog
         expect(driver).to match(/module my_input1/)
         expect(driver).to match(/my_input1_xact xact/)
         puts driver

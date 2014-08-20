@@ -1,29 +1,41 @@
 <%= render "../../common/header.erb" %>
 
 module Testbench
-  <% @dut.ports.each do |port|  %>
-  <%= port.vlg_definition "wire" %>
-  <% end %>
+<% @dut.ports.each do |port|  %>
+  <%= "#{port.vlg_definition 'wire'};" %>
+
+<% end %>
 
   dut dut(
-  <% @dut.ports[0...-1].each do |port|  %>
-  .<%= "#{port.name}(#{port.name})," %>
-
-  <% end %>
-  .<%= "#{@dut.ports.last.name}(#{@dut.ports.last.name})" if @dut.ports.last%>
+<% @dut.ports[0...-1].each do |port|  %>
+  <%= ".#{port.name}(#{port.name})," %>
+ <% end %>
+  <%= ".#{@dut.ports.last.name}(#{@dut.ports.last.name})" if @dut.ports.last%>
 
   );
 
-  <% @agents.each do |agent|  %>
-  <%= "#{agent.name} #{agent.name}" %>( 
-    <% agent.control_ports.each do |port| %>
-      .<%= "#{port.name}(dut.#{port.name})," %>
+<% @agents.each do |agent|  %>
+  <%= "#{agent.name} #{agent.name}(" %>
+  <% agent.control_ports[0...-1].each do |port| %>
 
-    <% end %>
-    <% agent.data_ports.each do |port| %>
-      .<%= "#{port.name}(dut.#{port.name})," %>
-
-    <% end %>
+    <%= ".#{port.name}(dut.#{port.name})," %>
   <% end %>
-  <%= ");" %>   
+  <% if agent.control_ports.last %>
+  <% n = agent.control_ports.last.name %>
+    <%= ".#{n}(dut.#{n})" %>
+  <% end %> 
+    //Connecting data ports
+  <% agent.data_ports[0...-1].each do |port| %>
+    <%= ".#{port.name}(dut.#{port.name})," %>
+
+  <% end %>
+  <% if agent.data_ports.last %>
+  <% n = agent.data_ports.last.name %>
+
+    <%= ".#{n}(dut.#{n})" %>
+  <% end %>
+
+  );
+<% end %>
+
 endmodule
